@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Stack Developer Roadmap</title>
+    <style>
+        /* Base Variables - Light Theme */
+        :root {
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #24292e;
+            --text-secondary: #586069;
+            --primary: #6200ee;
+            --primary-hover: #7925d3;
+            --primary-transparent: rgba(98, 0, 238, 0.1);
+            --border: #e1e4e8;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            
+            --fundamentals: #00c853;
+            --fundamentals-bg: rgba(0, 200, 83, 0.1);
+            --frontend: #2196f3;
+            --frontend-bg: rgba(33, 150, 243, 0.1);
+            --backend: #9c27b0;
+            --backend-bg: rgba(156, 39, 176, 0.1);
+            --devops: #ff9800;
+            --devops-bg: rgba(255, 152, 0, 0.1);
+            
+            --header-bg: #ffffff;
+            --timeline-bg: #e1e4e8;
+            
+            --transition-speed: 0.3s;
+        }
+        
+        /* Dark Theme Variables */
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #c9d1d9;
+            --text-secondary: #8b949e;
+            --primary: #bb86fc;
+            --primary-hover: #c499ff;
+            --primary-transparent: rgba(187, 134, 252, 0.1);
+            --border: #30363d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+            
+            --fundamentals: #00e676;
+            --fundamentals-bg: rgba(0, 230, 118, 0.1);
+            --frontend: #64b5f6;
+            --frontend-bg: rgba(100, 181, 246, 0.1);
+            --backend: #ce93d8;
+            --backend-bg: rgba(206, 147, 216, 0.1);
+            --devops: #ffb74d;
+            --devops-bg: rgba(255, 183, 77, 0.1);
+            
+            --header-bg: #161b22;
+            --timeline-bg: #30363d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--header-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            transition: color var(--transition-speed);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Theme Toggle */
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 64px;
+            height: 32px;
+        }
+        
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--card-bg);
+            border: 2px solid var(--primary);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 34px;
+            overflow: hidden;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 2px;
+            background-color: var(--primary);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+            background-color: var(--card-bg);
+        }
+        
+        .theme-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .sun-icon {
+            left: 8px;
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .moon-icon {
+            right: 8px;
+            opacity: 0;
+            color: var(--card-bg);
+        }
+        
+        [data-theme="dark"] .sun-icon {
+            opacity: 0;
+        }
+        
+        [data-theme="dark"] .moon-icon {
+            opacity: 1;
+        }
+        
+        /* Add hover and focus effects */
+        .slider:hover {
+            border-color: var(--primary-hover);
+        }
+        
+        .slider:hover:before {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-switch input:focus + .slider {
+            box-shadow: 0 0 0 2px var(--primary-transparent);
+        }
+        
+        /* Roadmap Title */
+        .roadmap-title {
+            text-align: center;
+            padding: 3rem 0 2rem;
+        }
+        
+        .roadmap-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--frontend));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        .roadmap-title p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0 2rem;
+        }
+        
+        .filter-btn {
+            background-color: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            font-size: 0.9rem;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Timeline Layout */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 4px;
+            background-color: var(--timeline-bg);
+            left: 0;
+            top: 0;
+            border-radius: 2px;
+        }
+        
+        /* Roadmap Item */
+        .roadmap-item {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 2.5rem;
+            animation: fadeIn 0.5s ease-in-out;
+            transform-origin: left center;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            left: -6px;
+            top: 20px;
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            z-index: 2;
+        }
+        
+        .roadmap-item::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 4px;
+            background-color: var(--primary);
+            left: 10px;
+            top: 26px;
+            transition: width var(--transition-speed), background-color var(--transition-speed);
+        }
+        
+        .roadmap-item:hover::before {
+            transform: scale(1.3);
+            box-shadow: 0 0 10px var(--primary);
+        }
+        
+        .roadmap-item:hover::after {
+            width: 40px;
+        }
+        
+        .roadmap-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        /* Item Content */
+        .item-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed), border-color var(--transition-speed);
+        }
+        
+        .roadmap-item:hover .item-content {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .item-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .item-number {
+            width: 28px;
+            height: 28px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .item-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            transition: color var(--transition-speed);
+        }
+        
+        .category-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge-fundamentals {
+            background-color: var(--fundamentals-bg);
+            color: var(--fundamentals);
+        }
+        
+        .badge-frontend {
+            background-color: var(--frontend-bg);
+            color: var(--frontend);
+        }
+        
+        .badge-backend {
+            background-color: var(--backend-bg);
+            color: var(--backend);
+        }
+        
+        .badge-devops {
+            background-color: var(--devops-bg);
+            color: var(--devops);
+        }
+        
+        /* Item Body */
+        .item-body {
+            color: var(--text-secondary);
+            transition: color var(--transition-speed);
+        }
+        
+        .topic-list {
+            list-style-type: none;
+            margin-top: 0.5rem;
+        }
+        
+        .topic-item {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+            border-bottom: 1px dashed var(--border);
+            transition: border-color var(--transition-speed);
+        }
+        
+        .topic-item:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-item::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            transition: color var(--transition-speed);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--header-bg);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
+        }
+        
+        footer p {
+            font-size: 0.9rem;
+        }
+        
+        /* Code Decoration */
+        .code-decoration {
+            position: fixed;
+            color: var(--text-secondary);
+            opacity: 0.05;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            pointer-events: none;
+            z-index: -1;
+            user-select: none;
+            transition: color var(--transition-speed);
+        }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .roadmap-title h1 {
+                font-size: 2rem;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .roadmap-item {
+                padding-left: 2.5rem;
+            }
+            
+            .roadmap-item::before {
+                left: 9px;
+            }
+            
+            .roadmap-item::after {
+                width: 20px;
+                left: 25px;
+            }
+            
+            .roadmap-item:hover::after {
+                width: 30px;
+            }
+            
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .item-number {
+                margin-bottom: 0.5rem;
+            }
+            
+            .category-badge {
+                position: relative;
+                display: inline-block;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="code-decoration" style="top: 10%; left: 5%; font-size: 20px;"></div>
+    <div class="code-decoration" style="bottom: 15%; right: 10%; font-size: 24px;"></div>
+    <div class="code-decoration" style="top: 40%; right: 5%; font-size: 16px;"></div>
+    
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                DevRoadmap
+            </div>
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle" checked>
+                <span class="slider">
+                    <span class="theme-icon sun-icon">☀️</span>
+                    <span class="theme-icon moon-icon">🌙</span>
+                </span>
+            </label>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="roadmap-title">
+            <h1>Full-Stack Developer Roadmap</h1>
+            <p>A roadmap that comprehensively covers nearly all the requirements you'd need to function as a modern day complete Fullstack Java Developer </p>
+        </div>
+        
+        <div class="filter-controls">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="fundamentals">Fundamentals</button>
+            <button class="filter-btn" data-filter="frontend">Frontend</button>
+            <button class="filter-btn" data-filter="backend">Backend</button>
+            <button class="filter-btn" data-filter="devops">DevOps</button>
+        </div>
+        
+        <div class="timeline">
+            <!-- Item 1 -->
+            <div class="roadmap-item" data-category="fundamentals">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">1</div>
+                        <h2 class="item-title">Fundamentals of Computer Science</h2>
+                        <span class="category-badge badge-fundamentals">Fundamentals</span>
+                    </div>
+                    <div class="item-body">
+                        <ul class="topic-list">
+                            <li class="topic-item">Operating Systems</li>
+                            <li class="topic-item">Networking and Computer networks</li>
+                            <li class="topic-item">DBMS</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="roadmap-item" data-category="fundamentals">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">2</div>
+                        <h2 class="item-title">Core OS & Shell Scripting</h2>
+                        <span class="category-badge badge-fundamentals">Fundamentals</span>
+                    </div>
+                    <div class="item-body">
+                        <ul class="topic-list">
+                            <li class="topic-item">File System & Navigation (Linux, Windows, macOS)</li>
+                            <li class="topic-item">Basic File Permissions & Process Management</li>
+                            <li class="topic-item">Basic Shell Scripting & Command Line</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="roadmap-item" data-category="backend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">3</div>
+                        <h2 class="item-title">Java (Core + Advanced)</h2>
+                        <span class="category-badge badge-backend">Backend</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Master core Java concepts, object-oriented programming, collections framework, and multithreading.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="roadmap-item" data-category="fundamentals">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">4</div>
+                        <h2 class="item-title">Basic Data Structures</h2>
+                        <span class="category-badge badge-fundamentals">Fundamentals</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Learn essential data structures including arrays, linked lists, stacks, queues, trees, and hashmaps.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 5 -->
+            <div class="roadmap-item" data-category="devops">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">5</div>
+                        <h2 class="item-title">Version Control (Git)</h2>
+                        <span class="category-badge badge-devops">DevOps</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Learn Git commands, branching strategies, pull requests, and collaborative workflows.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 6 -->
+            <div class="roadmap-item" data-category="backend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">6</div>
+                        <h2 class="item-title">Databases – SQL</h2>
+                        <span class="category-badge badge-backend">Backend</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Master SQL fundamentals, database design, joins, relationships, and optimization techniques.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 7 -->
+            <div class="roadmap-item" data-category="frontend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">7</div>
+                        <h2 class="item-title">HTML</h2>
+                        <span class="category-badge badge-frontend">Frontend</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Learn HTML structure, semantic elements, forms, validation, and accessibility principles.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 8 -->
+            <div class="roadmap-item" data-category="frontend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">8</div>
+                        <h2 class="item-title">CSS</h2>
+                        <span class="category-badge badge-frontend">Frontend</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Master CSS layouts, box model, Flexbox, Grid, responsive design, and CSS preprocessors.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 9 -->
+            <div class="roadmap-item" data-category="frontend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">9</div>
+                        <h2 class="item-title">JavaScript</h2>
+                        <span class="category-badge badge-frontend">Frontend</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Learn core JS concepts, DOM manipulation, asynchronous programming, and ES6+ features.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 10 -->
+            <div class="roadmap-item" data-category="backend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">10</div>
+                        <h2 class="item-title">Backend Framework</h2>
+                        <span class="category-badge badge-backend">Backend</span>
+                    </div>
+                    <div class="item-body">
+                        <ul class="topic-list">
+                            <li class="topic-item">Spring</li>
+                            <li class="topic-item">Springboot</li>
+                            <li class="topic-item">JPA</li>
+                            <li class="topic-item">Hibernate</li>
+                            <li class="topic-item">Spring Security</li>
+                            <li class="topic-item">RESTful API design & documentation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 11 -->
+            <div class="roadmap-item" data-category="backend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">11</div>
+                        <h2 class="item-title">Java Projects</h2>
+                        <span class="category-badge badge-backend">Backend</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Build real-world Java applications to apply and solidify your backend skills.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 12 -->
+            <div class="roadmap-item" data-category="backend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">12</div>
+                        <h2 class="item-title">Testing & Quality Assurance</h2>
+                        <span class="category-badge badge-backend">Backend</span>
+                    </div>
+                    <div class="item-body">
+                        <ul class="topic-list">
+                            <li class="topic-item">Unit Testing: JUnit, Mockito</li>
+                            <li class="topic-item">Integration & End-to-End Testing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 13 -->
+            <div class="roadmap-item" data-category="frontend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">13</div>
+                        <h2 class="item-title">React</h2>
+                        <span class="category-badge badge-frontend">Frontend</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Learn React fundamentals, component architecture, state management, hooks, and routing.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 14 -->
+            <div class="roadmap-item" data-category="fundamentals">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">14</div>
+                        <h2 class="item-title">Software Design & Pattern</h2>
+                        <span class="category-badge badge-fundamentals">Fundamentals</span>
+                    </div>
+                    <div class="item-body">
+                        <ul class="topic-list">
+                            <li class="topic-item">Design Patterns: Creational, structural, and behavioural</li>
+                            <li class="topic-item">System Design: Scalability, performance tuning, load balancing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 15 -->
+            <div class="roadmap-item" data-category="backend">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">15</div>
+                        <h2 class="item-title">Software Architectures</h2>
+                        <span class="category-badge badge-backend">Backend</span>
+                    </div>
+                    <div class="item-body">
+                        <ul class="topic-list">
+                            <li class="topic-item">Monolithic</li>
+                            <li class="topic-item">Microservice</li>
+                            <li class="topic-item">SOA</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 16 -->
+            <div class="roadmap-item" data-category="devops">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">16</div>
+                        <h2 class="item-title">Deployment</h2>
+                        <span class="category-badge badge-devops">DevOps</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Learn deployment strategies, environment configuration, and production considerations.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 17 -->
+            <div class="roadmap-item" data-category="devops">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">17</div>
+                        <h2 class="item-title">Containerization</h2>
+                        <span class="category-badge badge-devops">DevOps</span>
+                    </div>
+                    <div class="item-body">
+                        <ul class="topic-list">
+                            <li class="topic-item">Docker</li>
+                            <li class="topic-item">Kubernetes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 18 -->
+            <div class="roadmap-item" data-category="devops">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">18</div>
+                        <h2 class="item-title">DevOps Basics</h2>
+                        <span class="category-badge badge-devops">DevOps</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Learn infrastructure as code, monitoring/logging, and automation principles.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 19 -->
+            <div class="roadmap-item" data-category="devops">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">19</div>
+                        <h2 class="item-title">CI/CD</h2>
+                        <span class="category-badge badge-devops">DevOps</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Master continuous integration, continuous delivery, and pipeline automation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 20 -->
+            <div class="roadmap-item" data-category="fundamentals">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">20</div>
+                        <h2 class="item-title">Data Structures & Algorithms</h2>
+                        <span class="category-badge badge-fundamentals">Fundamentals</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Practice algorithmic problem-solving with LeetCode to prepare for technical interviews.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 21 -->
+            <div class="roadmap-item" data-category="fundamentals">
+                <div class="item-content">
+                    <div class="item-header">
+                        <div class="item-number">21</div>
+                        <h2 class="item-title">Agile Methodologies</h2>
+                        <span class="category-badge badge-fundamentals">Fundamentals</span>
+                    </div>
+                    <div class="item-body">
+                        <p>Learn SCRUM, Kanban, sprint planning, retrospectives, and collaborative development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Full-Stack Developer Roadmap • Updated April 2025</p>
+            <p>Developed by Piyush Jha</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Theme toggle functionality (without localStorage)
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Set initial state based on data-theme attribute (default is dark)
+        themeToggle.checked = htmlElement.getAttribute('data-theme') === 'dark';
+        
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                htmlElement.setAttribute('data-theme', 'dark');
+            } else {
+                htmlElement.setAttribute('data-theme', 'light');
+            }
+        });
+        
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const roadmapItems = document.querySelectorAll('.roadmap-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                // Show/hide roadmap items based on filter with animation
+                roadmapItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        // Trigger animation by removing and adding the item
+                        item.style.animation = 'none';
+                        void item.offsetWidth; // Trigger reflow
+                        item.style.animation = 'fadeIn 0.5s ease-in-out';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Staggered animation on load
+        document.addEventListener('DOMContentLoaded', () => {
+            roadmapItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+        
+        // Mobile responsiveness fix for header layout
+        if (window.innerWidth <= 768) {
+            const categoryBadges = document.querySelectorAll('.category-badge');
+            categoryBadges.forEach(badge => {
+                const header = badge.closest('.item-header');
+                header.appendChild(badge);
+            });
+        }
+    </script>
+</body>
+</html>
